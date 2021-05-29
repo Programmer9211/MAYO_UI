@@ -23,7 +23,7 @@ class WelcomeScreen extends StatelessWidget {
       height: size.height / 1.4,
       width: size.width,
       decoration: BoxDecoration(
-        color: Color.fromRGBO(22, 22, 22, 1),
+        //color: Color.fromRGBO(22, 22, 22, 1),
         image: DecorationImage(
           image: AssetImage("assets/curve.jpeg"),
           fit: BoxFit.cover,

@@ -6,27 +6,30 @@ class LoginScreen extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(22, 22, 22, 1),
+      // backgroundColor: Color.fromRGBO(22, 22, 22, 1),
       body: Column(
         children: [
           Container(
-              height: size.height / 3.3,
+              height: size.height / 3.1,
               width: size.width,
               color: Colors.white,
               alignment: Alignment.center,
               child: Column(
                 children: [
                   SizedBox(
-                    height: size.height / 20,
+                    height: size.height / 15,
                   ),
                   Text(
                     "MAYO",
                     style: TextStyle(
                       color: Colors.black,
                       letterSpacing: 2,
-                      fontSize: size.width / 12.9,
-                      fontWeight: FontWeight.w500,
+                      fontSize: size.width / 12.5,
+                      fontWeight: FontWeight.w700,
                     ),
+                  ),
+                  SizedBox(
+                    height: size.height / 40,
                   ),
                   Container(
                     height: size.height / 6,
@@ -41,14 +44,14 @@ class LoginScreen extends StatelessWidget {
                 ],
               )),
           SizedBox(
-            height: size.height / 30,
+            height: size.height / 60,
           ),
           Container(
             width: size.width / 1.2,
             child: Text(
               "Sign In",
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: size.width / 15,
                 fontWeight: FontWeight.w500,
               ),
@@ -68,7 +71,7 @@ class LoginScreen extends StatelessWidget {
             child: Text(
               "Forgot Password?",
               style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
             ),
           ),
           SizedBox(
@@ -82,10 +85,10 @@ class LoginScreen extends StatelessWidget {
             width: size.width / 1.6,
             alignment: Alignment.center,
             child: Text(
-              "By Login, You are agree to MAYO\n Terms of Use and Privacy Policy.",
+              "By Login, You agree to MAYO's \n Terms of Use and Privacy Policy.",
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontSize: size.width / 28,
                 fontWeight: FontWeight.bold,
               ),
@@ -105,7 +108,7 @@ class LoginScreen extends StatelessWidget {
               text: TextSpan(
                   text: "You Dont't have an account.",
                   style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontSize: size.width / 26,
                     fontWeight: FontWeight.w500,
                   ),
