@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:project/LoginScreen.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key key}) : super(key: key);
+  WelcomeScreen({Key key}) : super(key: key);
+
+  final PageController _controller = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +48,80 @@ class WelcomeScreen extends StatelessWidget {
               ),
             ),
           ),
+          SizedBox(
+            height: size.height / 20,
+          ),
+          Container(
+            height: size.height / 2.5,
+            width: size.width / 1.2,
+            color: Colors.white,
+            child: PageView(
+              controller: _controller,
+              children: [
+                pageViewItems(
+                  size,
+                  "TakeAway",
+                  "Why to get off your car for food?? just order from MAYO",
+                  "assets/burg.png",
+                ),
+                pageViewItems(
+                  size,
+                  "Scan and Order",
+                  "Experience a touch-less dining!! just order from MAYO and use E-Menu to order",
+                  "assets/burg.png",
+                ),
+                pageViewItems(
+                  size,
+                  "pre-order",
+                  "craving for your f/ood and still waiting?? just pre-order from MAYO and get served immediately after you reach",
+                  "assets/burg.png",
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
+
+  Widget pageViewItems(
+      Size size, String title, String content, String imageURL) {
+    return Container(
+      height: size.height / 2.7,
+      width: size.width / 1.2,
+      child: Column(
+        children: [
+          Container(
+            height: size.height / 3.8,
+            width: size.width / 1.2,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(imageURL),
+              ),
+            ),
+          ),
+          SizedBox(height: size.width / 40),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: size.width / 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            content,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: size.width / 22,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildIndicator(bool toShow) {}
 
   Widget bottom(Size size, BuildContext context) {
     return Container(
