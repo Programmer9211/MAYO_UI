@@ -12,12 +12,7 @@ class LoginScreen extends StatelessWidget {
           Container(
               height: size.height / 3.3,
               width: size.width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/img.jpeg"),
-                  fit: BoxFit.cover,
-                ),
-              ),
+              color: Colors.white,
               alignment: Alignment.center,
               child: Column(
                 children: [
@@ -27,10 +22,20 @@ class LoginScreen extends StatelessWidget {
                   Text(
                     "MAYO",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       letterSpacing: 2,
                       fontSize: size.width / 12.9,
                       fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Container(
+                    height: size.height / 6,
+                    width: size.height / 5,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage("assets/burg.png"),
+                        //fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
