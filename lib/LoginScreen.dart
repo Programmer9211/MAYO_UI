@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/HomeScreen.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -77,7 +78,7 @@ class LoginScreen extends StatelessWidget {
           SizedBox(
             height: size.height / 40,
           ),
-          customButton(size),
+          customButton(size, context),
           SizedBox(
             height: size.height / 30,
           ),
@@ -147,9 +148,10 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget customButton(Size size) {
+  Widget customButton(Size size, BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Navigator.of(context)
+          .push(MaterialPageRoute(builder: (_) => HomeScreen())),
       child: Container(
         height: size.height / 17,
         width: size.width / 1.15,
