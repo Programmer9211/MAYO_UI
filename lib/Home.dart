@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/BookTable.dart';
 
 class Home extends StatelessWidget {
   final List<BannerData> data = [
@@ -97,7 +98,7 @@ class Home extends StatelessWidget {
             SizedBox(
               height: size.height / 80,
             ),
-            content(size),
+            content(size, context),
             SizedBox(
               height: size.height / 80,
             ),
@@ -236,7 +237,7 @@ class Home extends StatelessWidget {
             }));
   }
 
-  Widget content(Size size) {
+  Widget content(Size size, BuildContext context) {
     return Container(
       height: size.height / 4.5,
       width: size.width / 1.05,
@@ -342,57 +343,64 @@ class Home extends StatelessWidget {
                   height: size.width / 80,
                 ),
                 Expanded(
-                  child: Material(
-                    elevation: 3,
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.white,
-                    child: Container(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: size.width / 40,
-                          ),
-                          Container(
-                            height: size.height / 10,
-                            width: size.width / 5,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/table.png"),
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => BookTable(),
+                      ),
+                    ),
+                    child: Material(
+                      elevation: 3,
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.white,
+                      child: Container(
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: size.width / 40,
+                            ),
+                            Container(
+                              height: size.height / 10,
+                              width: size.width / 5,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage("assets/table.png"),
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: size.width / 50,
-                          ),
-                          Column(
-                            children: [
-                              Container(
-                                height: size.height / 20,
-                                alignment: Alignment.bottomCenter,
-                                child: Text(
-                                  "Book Table",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: size.width / 23,
-                                    fontWeight: FontWeight.bold,
+                            SizedBox(
+                              width: size.width / 50,
+                            ),
+                            Column(
+                              children: [
+                                Container(
+                                  height: size.height / 20,
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    "Book Table",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: size.width / 23,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                height: size.height / 20,
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  "in a few clicks",
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: size.width / 40,
-                                    fontWeight: FontWeight.w500,
+                                Container(
+                                  height: size.height / 20,
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    "in a few clicks",
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: size.width / 40,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
