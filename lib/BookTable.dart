@@ -510,7 +510,7 @@ class _BookTableState extends State<BookTable> {
 
   Widget mealItems(Size size, bool isAdded) {
     return Container(
-      height: size.height / 8.5,
+      height: size.height / 8,
       width: size.width,
       alignment: Alignment.bottomCenter,
       child: Material(
@@ -563,7 +563,7 @@ class _BookTableState extends State<BookTable> {
                     ),
                   ),
                   SizedBox(
-                    height: size.width / 50,
+                    height: size.height / 150,
                   ),
                   Row(
                     children: [

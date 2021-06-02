@@ -132,10 +132,7 @@ class Home extends StatelessWidget {
                           width: size.width / 3.1,
                           decoration: BoxDecoration(
                               color: Colors.blue,
-                              borderRadius: BorderRadius.circular(15)
-                              // image: DecorationImage(
-                              //     image: AssetImage("assets/parcel.jpeg")),
-                              ),
+                              borderRadius: BorderRadius.circular(15)),
                         ),
                         Expanded(
                           child: Column(
@@ -144,7 +141,7 @@ class Home extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    width: size.width / 40,
+                                    width: size.width / 80,
                                   ),
                                   Text(
                                     "Restaurant Name",
@@ -156,18 +153,11 @@ class Home extends StatelessWidget {
                                   SizedBox(
                                     width: size.width / 10,
                                   ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(1.0),
-                                      child: Icon(Icons.bookmark_border),
-                                    ),
-                                  )
+                                  Icon(Icons.bookmark_border)
                                 ],
+                              ),
+                              SizedBox(
+                                height: size.height / 200,
                               ),
                               Container(
                                 width: size.width / 2,
@@ -178,6 +168,9 @@ class Home extends StatelessWidget {
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
+                              ),
+                              SizedBox(
+                                height: size.height / 200,
                               ),
                               Container(
                                 width: size.width / 1.9,
@@ -193,6 +186,9 @@ class Home extends StatelessWidget {
                                     ),
                                   ],
                                 ),
+                              ),
+                              SizedBox(
+                                height: size.height / 200,
                               ),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -298,7 +294,8 @@ class Home extends StatelessWidget {
                             width: size.width / 5,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage("assets/pre.png")),
+                                image: AssetImage("assets/pre.png"),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -308,7 +305,7 @@ class Home extends StatelessWidget {
                             children: [
                               Container(
                                 height: size.height / 20,
-                                width: size.height / 8.5,
+                                width: size.width / 4,
                                 alignment: Alignment.bottomLeft,
                                 child: Text(
                                   "Pre-Order",
@@ -471,7 +468,7 @@ class Home extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.grey[300],
                                 fontWeight: FontWeight.bold,
-                                fontSize: size.width / 50,
+                                fontSize: size.width / 32,
                               ),
                             ),
                           ),
@@ -479,39 +476,42 @@ class Home extends StatelessWidget {
                           //   height: size.height / 20,
                           // ),
                           Container(
-                            width: size.width / 2,
-                            child: TextButton(
-                              onPressed: () {},
-                              style:
-                                  ButtonStyle(alignment: Alignment.centerLeft),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "Order Now",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: size.width / 60,
-                                  ),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
+                            height: size.height / 18,
+                            width: size.width / 2.2,
+                            child: Row(
+                              children: [
+                                Text(
+                                  "Order Now",
+                                  style: TextStyle(
                                     color: Colors.white,
-                                    size: size.width / 25,
                                   ),
-                                ],
-                              ),
+                                ),
+                                SizedBox(
+                                  width: size.width / 60,
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                  size: size.width / 25,
+                                ),
+                              ],
                             ),
                           )
                         ],
                       ),
+                      SizedBox(
+                        width: size.width / 26,
+                      ),
                       Container(
                         height: size.height / 10,
-                        width: size.width / 6.3,
+                        width: size.width / 6,
                         decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.only(topRight: Radius.circular(20)),
                           image: DecorationImage(
-                              image: AssetImage(data[index].imageUrl)),
+                            image: AssetImage(data[index].imageUrl),
+                            //fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ],
