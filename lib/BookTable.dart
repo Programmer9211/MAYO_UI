@@ -106,14 +106,14 @@ class _BookTableState extends State<BookTable> {
             width: size.width / 5,
             alignment: Alignment.center,
             child: Container(
-              height: size.height / 25,
+              height: size.height / 22,
               width: size.width / 10,
               decoration:
                   BoxDecoration(shape: BoxShape.circle, color: Colors.white),
               alignment: Alignment.center,
               child: Icon(
                 Icons.arrow_back_ios,
-                size: size.width / 20,
+                size: size.width / 25,
                 color: Color.fromRGBO(57, 193, 169, 1),
               ),
             ),
@@ -440,7 +440,7 @@ class _BookTableState extends State<BookTable> {
             height: size.height / 4,
             width: size.width,
             child: ListView.builder(
-                itemCount: 2,
+                itemCount: 40,
                 itemBuilder: (context, index) {
                   return mealItems(size, index == 1 ? true : false);
                 }),

@@ -1,7 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:project/BookTable.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  final ScrollController _ListViewScrollController = ScrollController();
+
+  final ScrollController _childScrollController = ScrollController();
+  bool isScrollable = false;
+
   final List<BannerData> data = [
     BannerData(
         title: "Don't Worry!",
@@ -14,106 +24,143 @@ class Home extends StatelessWidget {
   ];
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    _ListViewScrollController.addListener(() {
+      if (_ListViewScrollController.position.pixels == 0.0) {
+        _childScrollController.position.animateTo(0.0,
+            duration: Duration(microseconds: 200), curve: Curves.ease);
+        setState(() {
+          isScrollable = false;
+        });
+      }
+    });
+
+    _childScrollController.addListener(() {
+      if (_childScrollController.position.atEdge) {
+        setState(() {
+          isScrollable = true;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height,
       width: size.width,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: size.height / 12.5,
-              width: size.width,
-              color: Color.fromRGBO(17, 147, 123, 1),
-              child: Row(
+      child: Column(
+        children: [
+          Container(
+            height: size.height / 12.5,
+            width: size.width,
+            color: Color.fromRGBO(17, 147, 123, 1),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: size.width / 20,
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: size.height / 80,
+                    ),
+                    Container(
+                      width: size.width / 1.2,
+                      child: Text(
+                        "Hello Ankit",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: size.width / 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      width: size.width / 1.2,
+                      child: Text(
+                        "New Delhi, MG road",
+                        style: TextStyle(
+                          color: Colors.grey[400],
+                          fontSize: size.width / 27,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                // Container(
+                //   height: size.height / 20,
+                //   width: size.height / 20,
+                //   child: Icon(
+                //     Icons.local_pizza,
+                //     color: Colors.white,
+                //   ),
+                // ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: size.height / 50,
+          ),
+          Container(
+            height: size.height / 17,
+            width: size.width / 1.1,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: "Search for a food and restaurant",
+                hintStyle: TextStyle(color: Colors.grey[600]),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide.none,
+                ),
+                fillColor: Colors.grey[200],
+                filled: true,
+                suffixIcon: Icon(Icons.search),
+              ),
+            ),
+          ),
+          Container(
+            height: size.height / 1.24,
+            width: size.width,
+            child: SingleChildScrollView(
+              controller: _childScrollController,
+              child: Column(
                 children: [
                   SizedBox(
-                    width: size.width / 20,
+                    height: size.height / 80,
                   ),
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: size.height / 80,
-                      ),
-                      Container(
-                        width: size.width / 1.2,
-                        child: Text(
-                          "Hello Ankit",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: size.width / 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        width: size.width / 1.2,
-                        child: Text(
-                          "New Delhi, MG road",
-                          style: TextStyle(
-                            color: Colors.grey[400],
-                            fontSize: size.width / 27,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      )
-                    ],
+                  banner(size),
+                  SizedBox(
+                    height: size.height / 80,
                   ),
-                  // Container(
-                  //   height: size.height / 20,
-                  //   width: size.height / 20,
-                  //   child: Icon(
-                  //     Icons.local_pizza,
-                  //     color: Colors.white,
-                  //   ),
-                  // ),
+                  content(size, context),
+                  SizedBox(
+                    height: size.height / 80,
+                  ),
+                  restaurentList(size),
                 ],
               ),
             ),
-            SizedBox(
-              height: size.height / 50,
-            ),
-            Container(
-              height: size.height / 17,
-              width: size.width / 1.1,
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Search for a food and restaurant",
-                  hintStyle: TextStyle(color: Colors.grey[600]),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide.none,
-                  ),
-                  fillColor: Colors.grey[200],
-                  filled: true,
-                  suffixIcon: Icon(Icons.search),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: size.height / 80,
-            ),
-            banner(size),
-            SizedBox(
-              height: size.height / 80,
-            ),
-            content(size, context),
-            SizedBox(
-              height: size.height / 80,
-            ),
-            restaurentList(size),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget restaurentList(Size size) {
     return Container(
-        height: size.height / 2.5,
+        height: size.height / 1.25,
         width: size.width / 1.05,
         child: ListView.builder(
+            controller: _ListViewScrollController,
+            physics: isScrollable
+                ? const AlwaysScrollableScrollPhysics()
+                : const NeverScrollableScrollPhysics(),
             itemCount: 40,
             itemBuilder: (context, index) {
               return Padding(
@@ -542,6 +589,13 @@ class Home extends StatelessWidget {
         decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _childScrollController.dispose();
+    _ListViewScrollController.dispose();
+    super.dispose();
   }
 }
 
