@@ -7,9 +7,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final ScrollController _ListViewScrollController = ScrollController();
-
-  final ScrollController _childScrollController = ScrollController();
   bool isScrollable = false;
 
   final List<BannerData> data = [
@@ -22,30 +19,6 @@ class _HomeState extends State<Home> {
         content: "We are here with\nthe best in town",
         imageUrl: "assets/donut.jpeg")
   ];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-
-    _ListViewScrollController.addListener(() {
-      if (_ListViewScrollController.position.pixels == 0.0) {
-        _childScrollController.position.animateTo(0.0,
-            duration: Duration(microseconds: 200), curve: Curves.ease);
-        setState(() {
-          isScrollable = false;
-        });
-      }
-    });
-
-    _childScrollController.addListener(() {
-      if (_childScrollController.position.atEdge) {
-        setState(() {
-          isScrollable = true;
-        });
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -128,8 +101,8 @@ class _HomeState extends State<Home> {
             height: size.height / 1.24,
             width: size.width,
             child: SingleChildScrollView(
-              controller: _childScrollController,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
                     height: size.height / 80,
@@ -153,14 +126,12 @@ class _HomeState extends State<Home> {
   }
 
   Widget restaurentList(Size size) {
-    return Container(
-        height: size.height / 1.25,
-        width: size.width / 1.05,
+    return Flexible(
+        // height: size.height / 1.25,
+        // width: size.width / 1.05,
         child: ListView.builder(
-            controller: _ListViewScrollController,
-            physics: isScrollable
-                ? const AlwaysScrollableScrollPhysics()
-                : const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: 40,
             itemBuilder: (context, index) {
               return Padding(
@@ -589,13 +560,6 @@ class _HomeState extends State<Home> {
         decoration: BoxDecoration(shape: BoxShape.circle, color: color),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _childScrollController.dispose();
-    _ListViewScrollController.dispose();
-    super.dispose();
   }
 }
 

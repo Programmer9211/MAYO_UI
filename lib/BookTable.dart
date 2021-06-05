@@ -6,6 +6,33 @@ class BookTable extends StatefulWidget {
 }
 
 class _BookTableState extends State<BookTable> {
+  final ScrollController _scrollController = ScrollController();
+
+  bool isHalf = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels >
+          MediaQuery.of(context).size.height / 2.3) {
+        if (!isHalf) {
+          setState(() {
+            isHalf = true;
+          });
+          print("isHalf");
+        }
+      } else {
+        if (isHalf) {
+          setState(() {
+            isHalf = false;
+          });
+          print("isNotHalf");
+        }
+      }
+    });
+  }
+
   final List<String> namesRecomandationList = [
     "Starter",
     "Chinese",
@@ -18,11 +45,67 @@ class _BookTableState extends State<BookTable> {
     final size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
+        appBar: isHalf
+            ? AppBar(
+                backgroundColor: Colors.white,
+                title: Text(
+                  "Restaurent Name",
+                  style: TextStyle(color: Colors.black),
+                ),
+              )
+            : PreferredSize(child: Container(), preferredSize: Size(0, 0)),
         body: SingleChildScrollView(
+          // physics: const AlwaysScrollableScrollPhysics(),
+          controller: _scrollController,
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
               imageAndDiscription(size),
+              Material(
+                elevation: 3,
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10),
+                child: Container(
+                  height: size.height / 16,
+                  width: size.width / 1.05,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: size.width / 20,
+                      ),
+                      Text(
+                        "Book a Table",
+                        style: TextStyle(
+                          fontSize: size.width / 22,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
               hotelSearchAndRecomendations(size),
+              isHalf
+                  ? Container(
+                      height: size.height / 1.75,
+                      width: size.width,
+                      child: ListView.builder(
+                          shrinkWrap: false,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          itemCount: 40,
+                          itemBuilder: (context, index) {
+                            return mealItems(size, index == 1 ? true : false);
+                          }),
+                    )
+                  : Flexible(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemCount: 40,
+                          itemBuilder: (context, index) {
+                            return mealItems(size, index == 1 ? true : false);
+                          }),
+                    ),
             ],
           ),
         ),
@@ -38,6 +121,7 @@ class _BookTableState extends State<BookTable> {
               Icon(
                 Icons.online_prediction_rounded,
                 color: Colors.white,
+                size: size.width / 16,
               ),
               SizedBox(
                 width: size.width / 30,
@@ -54,31 +138,32 @@ class _BookTableState extends State<BookTable> {
               SizedBox(
                 width: size.width / 3.2,
               ),
-              ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Checkout",
-                        style: TextStyle(
-                          color: Color.fromRGBO(17, 147, 123, 1),
-                          fontWeight: FontWeight.bold,
-                          fontSize: size.width / 24,
+              Material(
+                elevation: 5,
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(6),
+                child: Container(
+                    height: size.height / 24,
+                    width: size.width / 3.6,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Checkout",
+                          style: TextStyle(
+                            color: Color.fromRGBO(17, 147, 123, 1),
+                            fontWeight: FontWeight.bold,
+                            fontSize: size.width / 24,
+                          ),
                         ),
-                      ),
-                      Icon(
-                        Icons.arrow_forward_ios,
-                        color: Color.fromRGBO(17, 147, 123, 1),
-                        size: size.width / 20,
-                      )
-                    ],
-                  ))
+                        Icon(
+                          Icons.arrow_forward_ios,
+                          color: Color.fromRGBO(17, 147, 123, 1),
+                          size: size.width / 20,
+                        )
+                      ],
+                    )),
+              )
             ],
           ),
         ),
@@ -303,34 +388,14 @@ class _BookTableState extends State<BookTable> {
   }
 
   Widget hotelSearchAndRecomendations(Size size) {
-    return Container(
-      height: size.height / 1.7,
-      width: size.width,
+    return GestureDetector(
+      onVerticalDragEnd: isHalf
+          ? (val) {
+              _scrollController.jumpTo(0.0);
+            }
+          : null,
       child: Column(
         children: [
-          Material(
-            elevation: 3,
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            child: Container(
-              height: size.height / 16,
-              width: size.width / 1.05,
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: size.width / 20,
-                  ),
-                  Text(
-                    "Book a Table",
-                    style: TextStyle(
-                      fontSize: size.width / 22,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
           SizedBox(
             height: size.height / 80,
           ),
@@ -435,15 +500,6 @@ class _BookTableState extends State<BookTable> {
                 ],
               ),
             ),
-          ),
-          Container(
-            height: size.height / 4,
-            width: size.width,
-            child: ListView.builder(
-                itemCount: 40,
-                itemBuilder: (context, index) {
-                  return mealItems(size, index == 1 ? true : false);
-                }),
           ),
         ],
       ),
