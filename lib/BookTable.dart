@@ -7,7 +7,7 @@ class BookTable extends StatefulWidget {
 
 class _BookTableState extends State<BookTable> {
   final ScrollController _scrollController = ScrollController();
-
+  final ScrollController _scroll = ScrollController();
   bool isHalf = false;
 
   @override
@@ -31,6 +31,13 @@ class _BookTableState extends State<BookTable> {
         }
       }
     });
+
+    _scroll.addListener(() {
+      if (_scroll.position.pixels == 0.0) {
+        _scrollController.jumpTo(0.0);
+        print("Jump");
+      }
+    });
   }
 
   final List<String> namesRecomandationList = [
@@ -48,9 +55,20 @@ class _BookTableState extends State<BookTable> {
         appBar: isHalf
             ? AppBar(
                 backgroundColor: Colors.white,
+                leading: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Color.fromRGBO(57, 193, 169, 1),
+                  ),
+                  onPressed: () {},
+                ),
                 title: Text(
                   "Restaurent Name",
-                  style: TextStyle(color: Colors.black),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: size.width / 17,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               )
             : PreferredSize(child: Container(), preferredSize: Size(0, 0)),
@@ -90,6 +108,7 @@ class _BookTableState extends State<BookTable> {
                       height: size.height / 1.75,
                       width: size.width,
                       child: ListView.builder(
+                          controller: _scroll,
                           shrinkWrap: false,
                           physics: AlwaysScrollableScrollPhysics(),
                           itemCount: 40,
@@ -99,6 +118,7 @@ class _BookTableState extends State<BookTable> {
                     )
                   : Flexible(
                       child: ListView.builder(
+                          // controller: _scroll,
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           itemCount: 40,
@@ -397,7 +417,7 @@ class _BookTableState extends State<BookTable> {
       child: Column(
         children: [
           SizedBox(
-            height: size.height / 80,
+            height: size.height / 50,
           ),
           Material(
             elevation: 3,

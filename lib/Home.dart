@@ -29,9 +29,9 @@ class _HomeState extends State<Home> {
       child: Column(
         children: [
           Container(
-            height: size.height / 12.5,
+            height: size.height / 15,
             width: size.width,
-            color: Color.fromRGBO(17, 147, 123, 1),
+            //color: Color.fromRGBO(17, 147, 123, 1),
             child: Row(
               children: [
                 SizedBox(
@@ -47,7 +47,7 @@ class _HomeState extends State<Home> {
                       child: Text(
                         "Hello Ankit",
                         style: TextStyle(
-                          color: Colors.white,
+                          //color: Colors.white,
                           fontSize: size.width / 20,
                           fontWeight: FontWeight.bold,
                         ),
@@ -77,8 +77,9 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
-          SizedBox(
-            height: size.height / 50,
+          Divider(
+            thickness: 1,
+            color: Colors.grey,
           ),
           Container(
             height: size.height / 17,
@@ -96,6 +97,9 @@ class _HomeState extends State<Home> {
                 suffixIcon: Icon(Icons.search),
               ),
             ),
+          ),
+          SizedBox(
+            height: size.height / 100,
           ),
           Container(
             height: size.height / 1.24,
